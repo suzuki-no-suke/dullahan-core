@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defbot>
+    <!-- 基本設定 -->
+    <profile>
+        <name>シンプル Perplexity</name>
+        <system_name>Simple_Perplexity</system_name>
+        <basemodel>bots.ContinualCall</basemodel>
+        <version>0.1.250423</version>
+        <description>
+            Perplexity 通常モデル を呼び出します
+        </description>
+    </profile>
+    <configuration>
+        <chatmodel>sonar</chatmodel>
+    </configuration>
+    <initial_state>
+    </initial_state>
+    <!-- プロンプト定義 -->
+    <prompts>
+        <defprompt name="guidance">
+            Perplexity 問い合わせです
+        </defprompt>
+        <defprompt name="system">
+        </defprompt>
+        <defprompt name="first">
+            {{user_input}}
+        </defprompt>
+    </prompts>
+</defbot>

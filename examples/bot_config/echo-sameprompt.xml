@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defbot>
+    <!-- 基本設定 -->
+    <profile>
+        <name>やまびこBOT</name>
+        <system_name>EchoBot_SamePromptCall</system_name>
+        <basemodel>bots.SamePromptCall</basemodel>
+        <version>0.1.250423</version>
+        <description>
+            あなたの声をこだまします
+        </description>
+    </profile>
+    <configuration>
+        <chatmodel>echo</chatmodel>
+    </configuration>
+    <initial_state>
+    </initial_state>
+    <!-- プロンプト定義 -->
+    <prompts>
+        <defprompt name="guidance">
+            このBOTはシンプルにあなたの言葉を反復します。
+            あなたの声をこだまします。
+        </defprompt>
+        <defprompt name="system">
+        </defprompt>
+        <defprompt name="prompt">
+            {{user_input}}
+        </defprompt>
+    </prompts>
+</defbot>

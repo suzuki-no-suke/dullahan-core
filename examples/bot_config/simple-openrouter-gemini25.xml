@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defbot>
+    <!-- 基本設定 -->
+    <profile>
+        <name>OpenRouter - Gemini 2.0 Flash</name>
+        <system_name>Simple_OpenRouter_Gemini20</system_name>
+        <basemodel>bots.ContinualCall</basemodel>
+        <version>0.1.250423</version>
+        <description>
+            OpenRouter経由 : Gemini 2.0 Flash を呼び出します
+        </description>
+    </profile>
+    <configuration>
+        <chatmodel>google/gemini-2.0-flash-001</chatmodel>
+    </configuration>
+    <initial_state>
+    </initial_state>
+    <!-- プロンプト定義 -->
+    <prompts>
+        <defprompt name="guidance">
+            OpenRouter経由 : Gemini 2.0 Flash です
+        </defprompt>
+        <defprompt name="system">
+        </defprompt>
+        <defprompt name="first">
+            {{user_input}}
+        </defprompt>
+    </prompts>
+</defbot>

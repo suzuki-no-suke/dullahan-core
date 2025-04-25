@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defchatsys>
+    <configuration>
+        <bot_configuration_dir_path>./bot_config</bot_configuration_dir_path>
+        <history_path>./datakeep/data/chat_history.json</history_path>
+        <chatlog_file_path>./datakeep/data/local_chatlog.json</chatlog_file_path>
+        <memory_file_path>./datakeep/data/local_memory.json</memory_file_path>
+    </configuration>
+</defchatsys>

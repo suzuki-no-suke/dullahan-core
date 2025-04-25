@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defbot>
+    <!-- 基本設定 -->
+    <profile>
+        <name>シンプル ChatGPT 4.1</name>
+        <system_name>Simple_ChatGPT41</system_name>
+        <basemodel>bots.ContinualCall</basemodel>
+        <version>0.1.250423</version>
+        <description>
+            ChatGPT 4.1 を呼び出します
+        </description>
+    </profile>
+    <configuration>
+        <chatmodel>gpt-4.1</chatmodel>
+        <temperature>0.8</temperature>
+    </configuration>
+    <initial_state>
+    </initial_state>
+    <!-- プロンプト定義 -->
+    <prompts>
+        <defprompt name="guidance">
+            ChatGPT 4.1 との通常チャットです
+        </defprompt>
+        <defprompt name="system">
+        </defprompt>
+        <defprompt name="first">
+            {{user_input}}
+        </defprompt>
+    </prompts>
+</defbot>

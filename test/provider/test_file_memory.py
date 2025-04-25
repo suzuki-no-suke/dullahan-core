@@ -2,7 +2,7 @@ import pytest
 import json
 import os
 
-from src.provider.memory.FileMemory import FileMemory
+from src.dullahan.provider.memory.FileMemory import FileMemory
 
 @pytest.fixture
 def memory_file(tmp_path):

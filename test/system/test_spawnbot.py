@@ -2,9 +2,9 @@ import pytest
 import sys
 from unittest.mock import MagicMock, patch
 
-from src.system.SpawnBot import SpawnBot
-from src.defs.botdef import IBotBase
-from src.provider.FunctionProvider import FunctionProvider
+from src.dullahan.system.SpawnBot import SpawnBot
+from src.dullahan.defs.botdef import IBotBase
+from src.dullahan.provider.FunctionProvider import FunctionProvider
 
 # テスト用のモックモジュールとクラス
 class MockBotClass(IBotBase):
@@ -29,7 +29,7 @@ def test_spawn_bot_success(mock_provider):
     }
     
     # importlib.import_moduleのモック
-    with patch('src.system.SpawnBot.importlib') as mock_importlib:
+    with patch('src.dullahan.system.SpawnBot.importlib') as mock_importlib:
         # getattr関数のモック
         mock_module = MagicMock()
         mock_module.TestBot = MockBotClass
@@ -56,7 +56,7 @@ def test_spawn_bot_reload(mock_provider):
     }
     
     # sys.modulesにモジュールが存在する場合のテスト
-    with patch('src.system.SpawnBot.importlib') as mock_importlib:
+    with patch('src.dullahan.system.SpawnBot.importlib') as mock_importlib:
         with patch.dict(sys.modules, {'test.module.TestBot': MagicMock()}):
             # getattr関数のモック
             mock_module = MagicMock()
@@ -79,7 +79,7 @@ def test_spawn_bot_import_error(mock_provider):
         }
     }
     
-    with patch('src.system.SpawnBot.importlib') as mock_importlib:
+    with patch('src.dullahan.system.SpawnBot.importlib') as mock_importlib:
         mock_importlib.import_module.side_effect = ImportError("Module not found")
         
         # テスト実行
@@ -99,7 +99,7 @@ def test_spawn_bot_attribute_error(mock_provider):
         }
     }
     
-    with patch('src.system.SpawnBot.importlib') as mock_importlib:
+    with patch('src.dullahan.system.SpawnBot.importlib') as mock_importlib:
         # モジュールはインポートできるがクラスが見つからない場合
         mock_module = MagicMock()
         del mock_module.TestBot  # TestBotクラスを持たないようにする

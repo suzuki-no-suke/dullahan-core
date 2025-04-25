@@ -2,10 +2,10 @@ import pytest
 import os
 import xml.etree.ElementTree as ET
 from unittest.mock import MagicMock, patch
-from src.ChatControl import ChatControl
-from src.provider.FunctionProvider import FunctionProvider
-from src.system.SystemProvider import SystemProvider
-from src.defs.botdef import IBotBase
+from src.dullahan.ChatControl import ChatControl
+from src.dullahan.provider.FunctionProvider import FunctionProvider
+from src.dullahan.system.SystemProvider import SystemProvider
+from src.dullahan.defs.botdef import IBotBase
 
 
 @pytest.fixture
@@ -38,7 +38,7 @@ def mock_system_provider():
 
 @pytest.fixture
 def chat_control(mock_system_provider, mock_function_provider):
-    with patch('src.ChatControl.SpawnBot') as mock_spawn_bot:
+    with patch('src.dullahan.ChatControl.SpawnBot') as mock_spawn_bot:
         mock_bot = MagicMock(spec=IBotBase)
         mock_spawn_bot.spawn = MagicMock(return_value=mock_bot)
         control = ChatControl(mock_system_provider, mock_function_provider)

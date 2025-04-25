@@ -2,8 +2,8 @@ import pytest
 from typing import Dict, Any
 from datetime import datetime
 
-from src.provider.chatlog.FileChatLog import FileChatLog
-from src.defs.datadef import ChatMessageData
+from src.dullahan.provider.chatlog.FileChatLog import FileChatLog
+from src.dullahan.defs.datadef import ChatMessageData
 
 @pytest.fixture
 def temp_file_path(tmp_path):

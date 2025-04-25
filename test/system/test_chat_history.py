@@ -1,7 +1,7 @@
 import pytest
 import json
 import os
-from src.system.chathist.FileChatHistory import FileChatHistory, SingleChatHistory, WholeChatHistory
+from src.dullahan.system.chathist.FileChatHistory import FileChatHistory, SingleChatHistory, WholeChatHistory
 
 @pytest.fixture
 def history_path(tmp_path):

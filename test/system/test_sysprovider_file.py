@@ -1,8 +1,8 @@
 import pytest
 import os
 import shutil
-from src.system.Factory_SystemFileProvider import Factory_SystemFileProvider
-from src.system.SystemProvider import SystemProvider
+from src.dullahan.system.Factory_SystemFileProvider import Factory_SystemFileProvider
+from src.dullahan.system.SystemProvider import SystemProvider
 
 @pytest.fixture
 def test_dirs():

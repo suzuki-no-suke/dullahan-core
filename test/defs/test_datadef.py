@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from src.defs.datadef import ChatMessageData, ChatLogData
+from src.dullahan.defs.datadef import ChatMessageData, ChatLogData
 
 def test_chat_message_data_initialization():
     """ChatMessageDataの初期化テスト"""

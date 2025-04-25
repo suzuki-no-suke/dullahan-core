@@ -1,5 +1,5 @@
 import pytest
-from src.defs.ctrldef import SingleChatHistory, WholeChatHistory
+from src.dullahan.defs.ctrldef import SingleChatHistory, WholeChatHistory
 
 def test_single_chat_history():
     # 正常なケース

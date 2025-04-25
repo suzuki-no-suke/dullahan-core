@@ -1,7 +1,7 @@
 import pytest
 import os
 import tempfile
-from src.system.LoadSystemConfig import LoadSystemConfig
+from src.dullahan.system.LoadSystemConfig import LoadSystemConfig
 
 def test_load_system_config_success():
     # 一時的なXMLファイルを作成

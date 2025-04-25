@@ -1,7 +1,7 @@
 import pytest
 import os
-from src.provider.Factory_LocalFileProvider import LocalFileProvider
-from src.provider.FunctionProvider import FunctionProvider
+from src.dullahan.provider.Factory_LocalFileProvider import LocalFileProvider
+from src.dullahan.provider.FunctionProvider import FunctionProvider
 
 @pytest.fixture
 def temp_config(tmp_path):

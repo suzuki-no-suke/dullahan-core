@@ -1,6 +1,6 @@
 import os
 import pytest
-from src.system.botregist.RegistBotByFolder import RegistBotByFolder
+from src.dullahan.system.botregist.RegistBotByFolder import RegistBotByFolder
 import tempfile
 import shutil
 from pathlib import Path

@@ -1,9 +1,9 @@
 import pytest
 from unittest.mock import Mock
-from src.ChatSystem import ChatSystem
-from src.ChatControl import ChatControl
-from src.system.SystemProvider import SystemProvider
-from src.provider.FunctionProvider import FunctionProvider
+from src.dullahan.ChatSystem import ChatSystem
+from src.dullahan.ChatControl import ChatControl
+from src.dullahan.system.SystemProvider import SystemProvider
+from src.dullahan.provider.FunctionProvider import FunctionProvider
 
 def test_chat_system_initialization():
     # モックの作成

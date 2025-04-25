@@ -1,6 +1,6 @@
 import pytest
-from src.BotHelper import BotHelper
-from src.defs.datadef import ChatMessageData
+from src.dullahan.BotHelper import BotHelper
+from src.dullahan.defs.datadef import ChatMessageData
 
 def test_render_template():
     # テンプレートとパラメータのテスト

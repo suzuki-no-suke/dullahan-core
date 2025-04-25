@@ -3,7 +3,7 @@ import os
 import tempfile
 import xml.etree.ElementTree as ET
 
-from src.system.LoadBotConfig import LoadBotConfig
+from src.dullahan.system.LoadBotConfig import LoadBotConfig
 
 @pytest.fixture
 def temp_dir():

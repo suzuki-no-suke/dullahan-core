@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
-from src.defs.botdef import IBotBase
-from src.provider.FunctionProvider import FunctionProvider
+from src.dullahan.defs.botdef import IBotBase
+from src.dullahan.provider.FunctionProvider import FunctionProvider
 
 class MochBot(IBotBase):
     def __init__(self, provider, chat_id, config):

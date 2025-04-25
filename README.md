@@ -27,6 +27,14 @@ and import this library
 (WIP)
 
 
+## bot configuration guide
+
+
+
+### .env
+
+
+
 
 
 

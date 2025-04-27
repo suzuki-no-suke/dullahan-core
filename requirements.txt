@@ -1,3 +1,7 @@
 python-ulid
 pydantic
 jinja2
+python-dotenv
+sqlalchemy
+alembic
+typer

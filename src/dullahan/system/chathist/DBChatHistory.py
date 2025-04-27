@@ -18,12 +18,10 @@ class DBChatHistory(IChatHistory):
             chat_data = handler.get_chat_data(chat_id)
             return SingleChatHistory(chat_id=chat_id, system_name=chat_data.system_name)
 
-    def create_chat(self, chat_id: str, chat_data: SingleChatHistory):
+    def create_chat(self, system_name: str) -> str:
         with self.db_conn.get_new_session() as sess:
             handler = ChatHandler(sess)
-            if handler.is_exist(chat_id):
-                raise ValueError("Same chat id already exists: {chat_id}")
-            handler.create(chat_data.system_name)
+            return handler.create(system_name)
 
     def is_exists(self, chat_id: str) -> bool:
         with self.db_conn.get_new_session() as sess:

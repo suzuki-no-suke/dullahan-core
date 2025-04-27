@@ -9,10 +9,10 @@ class FileChatHistory(IChatHistory):
         self.history_path = self.config['history_path']
         self.chats = WholeChatHistory(datas={})
 
-    def get_chat_config(self, chat_id: str) -> SingleChatHistory:
+    def get_chat_history(self, chat_id: str) -> SingleChatHistory:
         return self.chats.datas[chat_id]
 
-    def set_chat_config(self, chat_id: str, chat_data: SingleChatHistory):
+    def create_chat(self, chat_id: str, chat_data: SingleChatHistory):
         self.chats.datas[chat_id] = chat_data
 
     def is_exists(self, chat_id: str) -> bool:

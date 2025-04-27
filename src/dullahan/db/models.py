@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, String, DateTime, Boolean, ForeignKey, LargeBinary, Text, CheckConstraint, Integer
+    Column, String, DateTime, Boolean, ForeignKey, LargeBinary, Text, CheckConstraint, Integer, JSON
 )
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.sql import func
@@ -57,3 +57,12 @@ class ChatLogEntry(Base):
 
     chat_log = relationship("ChatLog")
     chat_message = relationship("ChatMessage")
+
+class ChatMemory(Base):
+    __tablename__ = "chat_memory"
+
+    id = Column(String, primary_key=True, default=lambda: str(ULID()))
+    chat_log_id = Column(String, ForeignKey("chat_log.id"), nullable=False)
+    memory = Column(JSON, nullable=True)
+
+    

@@ -1,5 +1,6 @@
 import os
 import json
+from ulid import ULID
 from ...defs.ctrldef import WholeChatHistory, SingleChatHistory
 from ..interface.IChatHistory import IChatHistory
 
@@ -12,8 +13,10 @@ class FileChatHistory(IChatHistory):
     def get_chat_history(self, chat_id: str) -> SingleChatHistory:
         return self.chats.datas[chat_id]
 
-    def create_chat(self, chat_id: str, chat_data: SingleChatHistory):
-        self.chats.datas[chat_id] = chat_data
+    def create_chat(self, system_name: str) -> str:
+        chat_id = str(ULID())
+        self.chats.datas[chat_id] = SingleChatHistory(chat_id=chat_id, system_name=system_name)
+        return chat_id
 
     def is_exists(self, chat_id: str) -> bool:
         return FileChatHistory in self.chats.datas

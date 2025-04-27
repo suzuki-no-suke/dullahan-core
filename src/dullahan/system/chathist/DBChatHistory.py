@@ -31,6 +31,6 @@ class DBChatHistory(IChatHistory):
     def serialize(self):
         pass
 
-    def deserialize(self, data: dict):
+    def deserialize(self):
         pass
 

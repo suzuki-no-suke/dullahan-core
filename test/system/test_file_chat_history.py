@@ -22,22 +22,16 @@ def test_chat_history_initialization(chat_history):
 
 def test_set_and_get_chat_history(chat_history):
     """チャット設定の設定と取得テスト"""
-    chat_id = "test_chat"
-    chat_data = SingleChatHistory(chat_id=chat_id, system_name="test_system")
-    
-    chat_history.create_chat(chat_id, chat_data)
+    chat_id = chat_history.create_chat("test_system")
     retrieved_data = chat_history.get_chat_history(chat_id)
     
-    assert retrieved_data == chat_data
     assert retrieved_data.chat_id == chat_id
     assert retrieved_data.system_name == "test_system"
 
 def test_serialize_and_deserialize(chat_history, history_path):
     """シリアライズとデシリアライズのテスト"""
     # テストデータを設定
-    chat_id = "test_chat"
-    chat_data = SingleChatHistory(chat_id=chat_id, system_name="test_system")
-    chat_history.create_chat(chat_id, chat_data)
+    chat_id = chat_history.create_chat("test_system")
     
     # シリアライズを実行
     chat_history.serialize()

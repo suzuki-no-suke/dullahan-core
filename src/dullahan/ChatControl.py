@@ -16,9 +16,8 @@ class ChatControl:
         self.provider.deserialize()
 
     def create_chat(self, system_name: str) -> str:
-        chat_id = str(ULID())
+        chat_id = self.system_provider.history.create_chat(system_name)
         bot = SpawnBot.spawn(self.system_provider.bot_regist.get_config(system_name), self.provider, chat_id)
-        self.system_provider.history.create_chat(chat_id, SingleChatHistory(chat_id=chat_id, system_name=system_name))
         self.bots[chat_id] = bot
         return chat_id
 

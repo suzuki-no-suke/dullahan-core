@@ -20,8 +20,8 @@ def mock_system_provider():
     provider.deserialize = MagicMock()
     provider.serialize = MagicMock()
     provider.history = MagicMock()
-    provider.history.get_chat_config = MagicMock()
-    provider.history.set_chat_config = MagicMock()
+    provider.history.get_chat_history = MagicMock()
+    provider.history.create_chat = MagicMock()
     provider.history.is_exists = MagicMock(return_value=True)  # デフォルトで存在するように設定
     provider.bot_regist = MagicMock()
     provider.bot_regist.get_config = MagicMock()
@@ -55,13 +55,13 @@ def test_create_chat(chat_control, mock_system_provider):
     
     assert chat_id is not None
     assert chat_id in chat_control.bots
-    mock_system_provider.history.set_chat_config.assert_called_once()
+    mock_system_provider.history.create_chat.assert_called_once()
     assert isinstance(chat_control.bots[chat_id], IBotBase)
 
 def test_reopen_chat(chat_control, mock_system_provider):
     chat_id = "test_chat_id"
     system_name = "TestBot"
-    mock_system_provider.history.get_chat_config.return_value = system_name
+    mock_system_provider.history.get_chat_history.return_value = system_name
     mock_system_provider.history.is_exists.return_value = True
     
     chat_control.reopen_chat(chat_id)

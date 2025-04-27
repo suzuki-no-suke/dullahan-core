@@ -21,6 +21,10 @@ class FileMemory(IChatMemory):
         self.memories[chat_id] = memory
         self.serialize()
     
+    def delete(self, chat_id: str):
+        if chat_id in self.memories:
+            del self.memories[chat_id]
+
     def serialize(self) -> None:
         """データ全体をJSONファイルに永続化します"""
         os.makedirs(os.path.dirname(self.memory_file), exist_ok=True)

@@ -75,3 +75,26 @@ def test_corrupted_file_handling(file_memory, memory_file):
     
     # 空のメモリが作成されることを確認
     assert file_memory.memories == {}
+
+def test_delete_existing_chat(file_memory):
+    """存在するチャットIDの削除テスト"""
+    chat_id = "test_chat"
+    test_memory = {"key": "value"}
+    
+    # メモリを保存
+    file_memory.save(chat_id, test_memory)
+    
+    # メモリが存在することを確認
+    assert file_memory.load(chat_id) == test_memory
+    
+    # メモリを削除
+    file_memory.delete(chat_id)
+    
+    # メモリが削除されたことを確認
+    assert file_memory.load(chat_id) == {}
+
+def test_delete_nonexistent_chat(file_memory):
+    """存在しないチャットIDの削除テスト"""
+    # 存在しないチャットIDを削除してもエラーが発生しないことを確認
+    file_memory.delete("nonexistent_chat")
+    assert file_memory.load("nonexistent_chat") == {}

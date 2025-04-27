@@ -24,7 +24,10 @@ class IChatMemory:
             memory (Dict): 更新する記憶データ
         """
         raise NotImplementedError("need to implement")
-    
+
+    def delete(self, chat_id: str):
+        raise NotImplementedError("need to implement")
+
     def serialize(self) -> None:
         """データ全体を永続化します"""
         raise NotImplementedError("need to implement")

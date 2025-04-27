@@ -23,7 +23,7 @@ class DbSession:
             self.session = None
         session = sessionmaker(bind=self.dbobj.engine)()
         self.session = session
-        return self
+        return session
 
     def __exit__(self, exc_type, exc_value, traceback):
         if self.session is not None:

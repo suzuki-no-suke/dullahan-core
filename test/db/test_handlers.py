@@ -29,6 +29,7 @@ def test_chat_handler_add_message(db_session):
     chat_log_id = handler.create("test_system")
     message_id = handler.add_message(
         chat_log_id,
+        "user",
         "テストメッセージ",
         "test_system",
         "test_subsystem"
@@ -40,6 +41,7 @@ def test_chat_handler_get_single_message(db_session):
     chat_log_id = handler.create("test_system")
     message_id = handler.add_message(
         chat_log_id,
+        "user",
         "テストメッセージ",
         "test_system",
         "test_subsystem"
@@ -51,8 +53,8 @@ def test_chat_handler_get_single_message(db_session):
 def test_chat_handler_get_whole_log(db_session):
     handler = ChatHandler(db_session)
     chat_log_id = handler.create("test_system")
-    handler.add_message(chat_log_id, "メッセージ1", "test_system", "test_subsystem")
-    handler.add_message(chat_log_id, "メッセージ2", "test_system", "test_subsystem")
+    handler.add_message(chat_log_id, "user", "メッセージ1", "test_system", "test_subsystem")
+    handler.add_message(chat_log_id, "assitant", "メッセージ2", "test_system", "test_subsystem")
     messages = handler.get_whole_log(chat_log_id)
     assert len(messages) == 2
 

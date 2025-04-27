@@ -20,13 +20,13 @@ def test_chat_history_initialization(chat_history):
     assert isinstance(chat_history.chats, WholeChatHistory)
     assert len(chat_history.chats.datas) == 0
 
-def test_set_and_get_chat_config(chat_history):
+def test_set_and_get_chat_history(chat_history):
     """チャット設定の設定と取得テスト"""
     chat_id = "test_chat"
     chat_data = SingleChatHistory(chat_id=chat_id, system_name="test_system")
     
-    chat_history.set_chat_config(chat_id, chat_data)
-    retrieved_data = chat_history.get_chat_config(chat_id)
+    chat_history.create_chat(chat_id, chat_data)
+    retrieved_data = chat_history.get_chat_history(chat_id)
     
     assert retrieved_data == chat_data
     assert retrieved_data.chat_id == chat_id
@@ -37,7 +37,7 @@ def test_serialize_and_deserialize(chat_history, history_path):
     # テストデータを設定
     chat_id = "test_chat"
     chat_data = SingleChatHistory(chat_id=chat_id, system_name="test_system")
-    chat_history.set_chat_config(chat_id, chat_data)
+    chat_history.create_chat(chat_id, chat_data)
     
     # シリアライズを実行
     chat_history.serialize()
@@ -50,7 +50,7 @@ def test_serialize_and_deserialize(chat_history, history_path):
     new_chat_history.deserialize()
     
     # データが正しく復元されたことを確認
-    retrieved_data = new_chat_history.get_chat_config(chat_id)
+    retrieved_data = new_chat_history.get_chat_history(chat_id)
     assert retrieved_data.chat_id == chat_id
     assert retrieved_data.system_name == "test_system"
 

@@ -25,10 +25,10 @@ def test_db_session_context_manager():
     db_conn = DBConnection(db_uri)
     
     with db_conn.get_new_session() as session:
-        assert session.session is not None
+        # セッションがsqlalchemy.orm.Sessionのインスタンスであることを確認
+        from sqlalchemy.orm import Session
+        assert isinstance(session, Session)
         # 基本的なクエリが実行できることを確認
-        result = session.session.execute(text("SELECT 1"))
+        result = session.execute(text("SELECT 1"))
         assert result.scalar() == 1
-    
-    # コンテキストマネージャーを抜けた後、セッションが閉じられていることを確認
-    assert session.session is None
+

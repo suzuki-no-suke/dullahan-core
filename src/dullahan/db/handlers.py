@@ -20,6 +20,10 @@ class ChatHandler:
         self.session.commit()
         return chat_log.id
 
+    def get_chat_data(self, chat_log_id: str) -> Optional[ChatLog]:
+        """指定されたIDのチャットログデータを取得する"""
+        stmt = select(ChatLog).where(ChatLog.id == chat_log_id)
+        return self.session.execute(stmt).scalar_one_or_none()
 
     def update_title(self, chat_log_id: str, title: str) -> None:
         """チャットログのタイトルを更新する"""
@@ -29,9 +33,10 @@ class ChatHandler:
             chat_log.chat_title = title
             self.session.commit()
 
-    def add_message(self, chat_log_id: str, message: str, system_name: str, subsystem_name: str, is_error: bool = False) -> str:
+    def add_message(self, chat_log_id: str, role: str,  message: str, system_name: str, subsystem_name: str, is_error: bool = False) -> str:
         """チャットログにメッセージを追加する"""
         chat_message = ChatMessage(
+            role=role,
             message=message,
             system_name=system_name,
             subsystem_name=subsystem_name,
@@ -62,6 +67,12 @@ class ChatHandler:
             .order_by(ChatMessage.updated_at)
         )
         return list(self.session.execute(stmt).scalars().all())
+
+    def is_exist(self, chat_log_id: str) -> bool:
+        """チャットログが登録されているか確認する"""
+        stmt = select(ChatLog).where(ChatLog.id == chat_log_id)
+        chat_log = self.session.execute(stmt).scalar_one_or_none()
+        return chat_log is not None
 
 class ChatMemoryHandler:
     def __init__(self, session: Session):

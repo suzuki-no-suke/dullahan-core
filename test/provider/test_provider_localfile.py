@@ -1,6 +1,6 @@
 import pytest
 import os
-from src.dullahan.provider.Factory_LocalFileProvider import LocalFileProvider
+from src.dullahan.provider.Factory_LocalFileProvider import Factory_LocalFileProvider
 from src.dullahan.provider.FunctionProvider import FunctionProvider
 
 @pytest.fixture
@@ -16,7 +16,7 @@ def temp_config(tmp_path):
 
 def test_moch_factory_creation(temp_config):
     # ファクトリを使用してFunctionProviderを作成
-    provider = LocalFileProvider.create(temp_config)
+    provider = Factory_LocalFileProvider.create(temp_config)
     
     # 作成されたオブジェクトがFunctionProviderのインスタンスであることを確認
     assert isinstance(provider, FunctionProvider)
@@ -35,7 +35,7 @@ def test_moch_factory_creation(temp_config):
 def test_moch_factory_with_invalid_config():
     # 無効な設定でテスト
     with pytest.raises(Exception):
-        LocalFileProvider.create({})
+        Factory_LocalFileProvider.create({})
         # 例外発生後にデフォルトのパスにファイルが存在しないことを確認
         default_memory_path = "./chat_memory.json"
         default_chatlog_path = "./chat_log.json"

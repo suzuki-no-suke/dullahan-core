@@ -1,12 +1,12 @@
 from dullahan.system.Factory_SystemFileProvider import Factory_SystemFileProvider
-from dullahan.provider.Factory_LocalFileProvider import LocalFileProvider
+from dullahan.provider.Factory_LocalFileProvider import Factory_LocalFileProvider
 from dullahan.system.LoadSystemConfig import LoadSystemConfig
 from dullahan.ChatSystem import ChatSystem
 
 def prepare(system_config_path: str):
     config = LoadSystemConfig.load(system_config_path)
     sys_provider = Factory_SystemFileProvider.create(config)
-    provider = LocalFileProvider.create(config)
+    provider = Factory_LocalFileProvider.create(config)
     chatsys = ChatSystem(sys_provider, provider)
     return chatsys.generate_ctrl(), sys_provider, provider
 

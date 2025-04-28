@@ -60,3 +60,18 @@ $env:PYTHONPATH = "$env:PYTHONPATH;$(Get-Location)";
 pytest .\test\
 ```
 
+
+
+
+# To Develop
+
+## alembic migration
+
+to create migration script
+
+```powershell
+cd src/dullahan
+$env:DB_CONN="sqlite:///db/migrations/reference.sqlite"
+alembic upgrade head
+alembic revision --autogenerate -m "<comment>"
+```

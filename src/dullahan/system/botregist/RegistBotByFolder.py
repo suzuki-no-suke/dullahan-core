@@ -48,6 +48,15 @@ class RegistBotByFolder(IBotRegist):
             except Exception as e:
                 print(f"警告: {xml_file} の読み込みに失敗しました: {str(e)}")
 
+    def list_bot_names(self) -> list[str]:
+        """
+        ボット名を全て返す
+
+        Returns:
+            list[str]: 利用可能なボット名のリスト
+        """
+        return list(self.bot_configs.keys())
+
     def get_config(self, system_name: str) -> dict:
         """指定されたボット名の設定を取得する
 

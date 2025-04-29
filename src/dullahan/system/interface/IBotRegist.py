@@ -14,6 +14,15 @@ class IBotRegist:
         """
         raise NotImplementedError("loadメソッドは継承先で実装する必要があります")
 
+    def list_bot_names(self) -> list[str]:
+        """
+        ボット名を全て返す
+
+        Returns:
+            list[str]: 利用可能なボット名のリスト
+        """
+        raise NotImplementedError("loadメソッドは継承先で実装する必要があります")
+
     def get_config(self, system_name: str) -> dict:
         """指定されたボット名の設定を取得する
 

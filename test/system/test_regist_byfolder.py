@@ -126,3 +126,43 @@ class TestRegistBotByFolder:
         # 検証
         assert config["profile"]["system_name"] == "simple_bot"
         assert "configuration" not in config
+
+    def test_list_bot_names(self, temp_dir, valid_xml_content):
+        # テスト用のXMLファイルを作成
+        xml_path = os.path.join(temp_dir, "test_bot.xml")
+        with open(xml_path, "w", encoding="utf-8") as f:
+            f.write(valid_xml_content)
+
+        # システム設定を作成
+        system_config = {
+            "bot_configuration_dir_path": temp_dir
+        }
+
+        # RegistBotByFolderを初期化
+        regist = RegistBotByFolder(system_config)
+
+        # ボット名のリストを取得
+        bot_names = regist.list_bot_names()
+
+        # 検証
+        assert len(bot_names) == 1
+        assert "test_bot" in bot_names
+
+    def test_is_exist(self, temp_dir, valid_xml_content):
+        # テスト用のXMLファイルを作成
+        xml_path = os.path.join(temp_dir, "test_bot.xml")
+        with open(xml_path, "w", encoding="utf-8") as f:
+            f.write(valid_xml_content)
+
+        # システム設定を作成
+        system_config = {
+            "bot_configuration_dir_path": temp_dir
+        }
+
+        # RegistBotByFolderを初期化
+        regist = RegistBotByFolder(system_config)
+
+        # 存在するボットの確認
+        assert regist.is_exist("test_bot") is True
+        # 存在しないボットの確認
+        assert regist.is_exist("nonexistent_bot") is False

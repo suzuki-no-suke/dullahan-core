@@ -10,6 +10,9 @@ class IChatHistory:
     def create_chat(self, system_name: str) -> str:
         raise NotImplementedError("Must implement at derived class")
 
+    def list_all_chat_history(self) -> list[str]:
+        raise NotImplementedError("Must implement at derived class")
+
     def is_exists(self, chat_id: str) -> bool:
         raise NotImplementedError("Must implement at derived class")
 

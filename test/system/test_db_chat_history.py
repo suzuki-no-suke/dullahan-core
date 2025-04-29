@@ -52,3 +52,16 @@ def test_is_exists(chat_history):
     # 存在するチャットIDを確認
     chat_id = chat_history.create_chat("test_system")
     assert chat_history.is_exists(chat_id) is True
+
+def test_list_all_chat_history(chat_history):
+    # 複数のチャットを作成
+    chat_ids = []
+    for i in range(3):
+        chat_id = chat_history.create_chat(f"test_system_{i}")
+        chat_ids.append(chat_id)
+    
+    # すべてのチャットIDを取得して検証
+    all_chat_ids = chat_history.list_all_chat_history()
+    assert len(all_chat_ids) == 3
+    for chat_id in chat_ids:
+        assert chat_id in all_chat_ids

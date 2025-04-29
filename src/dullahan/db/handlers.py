@@ -74,6 +74,12 @@ class ChatHandler:
         chat_log = self.session.execute(stmt).scalar_one_or_none()
         return chat_log is not None
 
+    def list_all_chat_ids(self) -> list[str]:
+        """すべてのチャットログのIDを取得する"""
+        stmt = select(ChatLog.id)
+        result = self.session.execute(stmt).scalars().all()
+        return list(result)
+
 class ChatMemoryHandler:
     def __init__(self, session: Session):
         self.session = session

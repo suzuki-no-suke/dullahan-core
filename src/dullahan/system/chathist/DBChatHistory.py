@@ -28,6 +28,11 @@ class DBChatHistory(IChatHistory):
             handler = ChatHandler(sess)
             return handler.is_exist(chat_id)
 
+    def list_all_chat_history(self) -> list[str]:
+        with self.db_conn.get_new_session() as sess:
+            handler = ChatHandler(sess)
+            return handler.list_all_chat_ids()
+
     def serialize(self):
         pass
 

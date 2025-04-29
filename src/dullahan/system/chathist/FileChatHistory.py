@@ -21,6 +21,9 @@ class FileChatHistory(IChatHistory):
     def is_exists(self, chat_id: str) -> bool:
         return FileChatHistory in self.chats.datas
 
+    def list_all_chat_history(self) -> list[str]:
+        return list(self.chats.datas.keys())
+
     def serialize(self):
         try:
             os.makedirs(os.path.dirname(self.history_path), exist_ok=True)

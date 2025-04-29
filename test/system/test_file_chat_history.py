@@ -56,3 +56,17 @@ def test_serialize_error_handling(chat_history):
     with pytest.raises(ValueError):
         chat_history.serialize()
 
+def test_list_all_chat_history(chat_history):
+    """すべてのチャット履歴のリスト取得テスト"""
+    # 複数のチャットを作成
+    chat_ids = []
+    for i in range(3):
+        chat_id = chat_history.create_chat(f"test_system_{i}")
+        chat_ids.append(chat_id)
+    
+    # すべてのチャットIDを取得して検証
+    all_chat_ids = chat_history.list_all_chat_history()
+    assert len(all_chat_ids) == 3
+    for chat_id in chat_ids:
+        assert chat_id in all_chat_ids
+

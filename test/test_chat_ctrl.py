@@ -12,6 +12,8 @@ from src.dullahan.defs.botdef import IBotBase
 def mock_function_provider():
     provider = MagicMock(spec=FunctionProvider)
     provider.serialize = MagicMock()
+    provider.logs = MagicMock()
+    provider.logs.get_log = MagicMock()
     return provider
 
 @pytest.fixture
@@ -61,7 +63,9 @@ def test_create_chat(chat_control, mock_system_provider):
 def test_reopen_chat(chat_control, mock_system_provider):
     chat_id = "test_chat_id"
     system_name = "TestBot"
-    mock_system_provider.history.get_chat_history.return_value = system_name
+    mock_chat_history = MagicMock()
+    mock_chat_history.system_name = system_name
+    mock_system_provider.history.get_chat_history.return_value = mock_chat_history
     mock_system_provider.history.is_exists.return_value = True
     
     chat_control.reopen_chat(chat_id)
@@ -101,3 +105,52 @@ def test_invalid_chat_id(chat_control, mock_system_provider):
     
     with pytest.raises(ValueError):
         chat_control.reopen_chat("invalid_chat_id_2")
+
+def test_list_all_bot_config(chat_control, mock_system_provider):
+    mock_bot_names = ["Bot1", "Bot2"]
+    mock_bot_configs = [{"name": "Bot1"}, {"name": "Bot2"}]
+    
+    mock_system_provider.bot_regist.list_bot_names.return_value = mock_bot_names
+    mock_system_provider.bot_regist.get_config.side_effect = mock_bot_configs
+    
+    result = chat_control.list_all_bot_config()
+    
+    assert result == mock_bot_configs
+    mock_system_provider.bot_regist.list_bot_names.assert_called_once()
+    assert mock_system_provider.bot_regist.get_config.call_count == len(mock_bot_names)
+
+def test_list_all_logs(chat_control, mock_system_provider, mock_function_provider):
+    mock_chat_ids = ["chat1", "chat2"]
+    mock_logs = [MagicMock(), MagicMock()]
+    
+    mock_system_provider.history.list_all_chat_history.return_value = mock_chat_ids
+    mock_function_provider.logs.get_log.side_effect = mock_logs
+    
+    result = chat_control.list_all_logs()
+    
+    assert result == mock_logs
+    mock_system_provider.history.list_all_chat_history.assert_called_once()
+    assert mock_function_provider.logs.get_log.call_count == len(mock_chat_ids)
+
+def test_get_single_log(chat_control, mock_system_provider, mock_function_provider):
+    chat_id = "test_chat_id"
+    mock_log = MagicMock()
+    
+    mock_system_provider.history.is_exists.return_value = True
+    mock_function_provider.logs.get_log.return_value = mock_log
+    
+    result = chat_control.get_single_log(chat_id)
+    
+    assert result == mock_log
+    mock_system_provider.history.is_exists.assert_called_once_with(chat_id)
+    mock_function_provider.logs.get_log.assert_called_once_with(chat_id)
+
+def test_get_single_log_not_found(chat_control, mock_system_provider):
+    chat_id = "non_existent_chat"
+    mock_system_provider.history.is_exists.return_value = False
+    
+    with pytest.raises(ValueError) as exc_info:
+        chat_control.get_single_log(chat_id)
+    
+    assert str(exc_info.value) == f"specified chat not exists : {chat_id}"
+    mock_system_provider.history.is_exists.assert_called_once_with(chat_id)

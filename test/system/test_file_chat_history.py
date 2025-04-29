@@ -1,7 +1,8 @@
 import pytest
 import json
 import os
-from src.dullahan.system.chathist.FileChatHistory import FileChatHistory, SingleChatHistory, WholeChatHistory
+from src.dullahan.system.chathist.FileChatHistory import FileChatHistory
+from src.dullahan.defs.ctrldef import SingleChatHistory, WholeChatHistory
 
 @pytest.fixture
 def history_path(tmp_path):
@@ -27,6 +28,12 @@ def test_set_and_get_chat_history(chat_history):
     
     assert retrieved_data.chat_id == chat_id
     assert retrieved_data.system_name == "test_system"
+
+def test_is_exists(chat_history):
+    """チャットIDの存在確認テスト"""
+    chat_id = chat_history.create_chat("test_system")
+    assert chat_history.is_exists(chat_id) is True
+    assert chat_history.is_exists("non_existent_id") is False
 
 def test_serialize_and_deserialize(chat_history, history_path):
     """シリアライズとデシリアライズのテスト"""

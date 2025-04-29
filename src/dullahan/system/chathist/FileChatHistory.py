@@ -19,7 +19,7 @@ class FileChatHistory(IChatHistory):
         return chat_id
 
     def is_exists(self, chat_id: str) -> bool:
-        return FileChatHistory in self.chats.datas
+        return chat_id in self.chats.datas.keys()
 
     def list_all_chat_history(self) -> list[str]:
         return list(self.chats.datas.keys())

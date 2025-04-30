@@ -32,6 +32,9 @@ def test_chat_log_data_initialization():
     assert chat_log.chat_title == "(Untitled)"
     assert len(chat_log.messages) == 0
     assert isinstance(chat_log.chat_id, str)
+    assert isinstance(chat_log.created_at, datetime)
+    assert isinstance(chat_log.updated_at, datetime)
+    assert chat_log.created_at == chat_log.updated_at
 
 def test_chat_log_data_add_message():
     """ChatLogDataのメッセージ追加テスト"""
@@ -39,6 +42,11 @@ def test_chat_log_data_add_message():
         chat_id="test_chat_id",
         system_name="test_system"
     )
+    initial_updated_at = chat_log.updated_at
+
+    import time
+    time.sleep(0.001)  # 1msのスリープを追加
+
     chat_log.add_message(
         role="user",
         message="テストメッセージ",
@@ -51,3 +59,4 @@ def test_chat_log_data_add_message():
     assert message.message == "テストメッセージ"
     assert message.system_name == "test_system"
     assert message.subsystem_name == "test_subsystem"
+    assert chat_log.updated_at > initial_updated_at

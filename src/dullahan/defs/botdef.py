@@ -19,5 +19,5 @@ class IBotBase:
     def opening(self):
         raise NotImplementedError("need to impe method")
 
-    def chat(self, user_input: str):
+    def chat(self, user_input: str, subsystem_name: str = "(Unspecified)"):
         raise NotImplementedError("need to impe method")

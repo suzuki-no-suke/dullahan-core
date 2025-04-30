@@ -35,10 +35,10 @@ class ChatControl:
         self.system_provider.serialize()
         self.provider.serialize()
 
-    def chat(self, chat_id: str, user_input: str):
+    def chat(self, chat_id: str, user_input: str, subsystem_name: str = "(Unspecified)"):
         if chat_id not in self.bots:
             raise ValueError(f"Chat ID not found. Create or reopen first.: {chat_id}")
-        self.bots[chat_id].chat(user_input)
+        self.bots[chat_id].chat(user_input, subsystem_name)
         self.system_provider.serialize()
         self.provider.serialize()
 
@@ -50,6 +50,12 @@ class ChatControl:
         bot_names = self.system_provider.bot_regist.list_bot_names()
         return [self.system_provider.bot_regist.get_config(name) for name in bot_names]
     
+    def bot_is_exists(self, system_name: str) -> bool:
+        return self.system_provider.bot_regist.is_exist(system_name)
+
+    def get_single_bot_config(self, system_name: str) -> dict:
+        return self.system_provider.bot_regist.get_config(system_name)
+
     def list_all_logs(self) -> list[ChatLogData]:
         chat_ids = self.system_provider.history.list_all_chat_history()
         return [self.provider.logs.get_log(chat_id) for chat_id in chat_ids]
@@ -58,6 +64,6 @@ class ChatControl:
         if not self.system_provider.history.is_exists(chat_id):
             raise ValueError(f"specified chat not exists : {chat_id}")
         return self.provider.logs.get_log(chat_id)
-
+    
     def chat_is_exists(self, chat_id: str) -> bool:
         return self.system_provider.history.is_exists(chat_id)

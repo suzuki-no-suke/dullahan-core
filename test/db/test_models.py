@@ -45,6 +45,8 @@ def test_chat_log_creation(db_session):
     db_session.commit()
 
     assert chat_log.id is not None
+    assert chat_log.created_at is not None
+    assert chat_log.updated_at is not None
     assert chat_log.status == ChatLogStatusEnum.WAIT
     assert chat_log.system_name == "テストシステム"
     assert chat_log.chat_title == "テストチャット"

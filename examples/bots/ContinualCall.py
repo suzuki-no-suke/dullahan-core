@@ -24,7 +24,7 @@ class ContinualCall(IBotBase):
             ChatMessageData.create("system", self.config['prompts']['system'], self.system_name)
         ])
 
-    def chat(self, user_input: str):
+    def chat(self, user_input: str, subsystem_name: str = "(Unspecified)"):
         model_name = self.config['configuration']['chatmodel']
         llm_config = {}
         find_first = False
@@ -43,5 +43,5 @@ class ContinualCall(IBotBase):
             ])
         response = self.helper.llm_call(model_name, llm_config, self.provider.logs.get_log(self.chat_id).messages)
         self.provider.logs.add_log(self.chat_id, [
-            ChatMessageData.create("assistant", response, self.system_name, model_name),
+            ChatMessageData.create("assistant", response, self.system_name, model_name)
         ])

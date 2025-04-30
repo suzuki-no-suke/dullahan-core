@@ -59,6 +59,11 @@ def test_serialize_and_deserialize(file_chat_log, sample_messages, temp_file_pat
     # ログを追加
     file_chat_log.add_log(chat_id, sample_messages)
     
+    # 元のログデータを保存
+    original_log_data = file_chat_log.get_log(chat_id)
+    original_created_at = original_log_data.created_at
+    original_updated_at = original_log_data.updated_at
+    
     # シリアライズ
     file_chat_log.serialize()
 
@@ -69,6 +74,12 @@ def test_serialize_and_deserialize(file_chat_log, sample_messages, temp_file_pat
     assert len(log_data.messages) == 2
     assert log_data.messages[0].message == "Hello"
     assert log_data.messages[1].message == "Hi there!"
+    
+    # 日時フィールドの復元を確認
+    assert isinstance(log_data.created_at, datetime)
+    assert isinstance(log_data.updated_at, datetime)
+    assert log_data.created_at == original_created_at
+    assert log_data.updated_at == original_updated_at
     
     # created_atの復元を確認
     assert isinstance(log_data.messages[0].created_at, datetime)

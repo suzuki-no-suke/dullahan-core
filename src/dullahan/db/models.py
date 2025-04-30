@@ -39,6 +39,8 @@ class ChatLog(Base):
     __tablename__ = "chat_log"
 
     id = Column(String, primary_key=True, default=lambda: str(ULID()))  # ULID
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     status = Column(String, nullable=False, default="wait")
     system_name = Column(String, nullable=False, default="(Unknown)")
     chat_title = Column(String, nullable=True, default="(Untitled)")

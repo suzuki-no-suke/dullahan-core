@@ -38,19 +38,25 @@ class ChatLogData(BaseModel):
     status: str
     system_name: str
     chat_title: str
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
     messages: list[ChatMessageData]
 
     @classmethod
     def create(cls, chat_id: str, system_name: str):
+        now = datetime.datetime.now()
         return cls(
             chat_id=chat_id,
             status="wait",
             system_name=system_name,
             chat_title="(Untitled)",
+            created_at=now,
+            updated_at=now,
             messages=[])
 
     def add_message(self, role: str, message: str, subsystem_name: str = "(Not-specified)"):
         self.messages.append(ChatMessageData.create(role=role, message=message, system_name=self.system_name, subsystem_name=subsystem_name))
+        self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         return f"Chat ID: {self.chat_id} - Messages: {len(self.messages)}"

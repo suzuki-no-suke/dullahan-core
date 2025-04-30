@@ -12,12 +12,15 @@ class MochBot(IBotBase):
     def opening(self):
         return self._opening_message
     
-    def chat(self, user_input: str):
+    def chat(self, user_input: str, subsystem_name: str):
+        self.provider.chat(user_input, subsystem_name)
         return self._chat_response.format(user_input=user_input)
 
 @pytest.fixture
 def mock_provider():
-    return Mock(spec=FunctionProvider)
+    provider = Mock(spec=FunctionProvider)
+    provider.chat = Mock(return_value="Test response")
+    return provider
 
 @pytest.fixture
 def chat_id():
@@ -59,5 +62,7 @@ def test_opening(bot):
 def test_chat(bot):
     """chatメソッドのテスト"""
     test_input = "Hello"
-    result = bot.chat(test_input)
+    subsystem_name = "test_subsystem"
+    result = bot.chat(test_input, subsystem_name)
     assert result == f"Test response to: {test_input}"
+    bot.provider.chat.assert_called_with(test_input, subsystem_name)

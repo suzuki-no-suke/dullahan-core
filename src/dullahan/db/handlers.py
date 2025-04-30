@@ -50,6 +50,14 @@ class ChatHandler:
             chat_message_id=chat_message.id
         )
         self.session.add(chat_log_entry)
+        
+        # メッセージが追加されたときにチャットログのupdated_atを更新
+        stmt = select(ChatLog).where(ChatLog.id == chat_log_id)
+        chat_log = self.session.execute(stmt).scalar_one_or_none()
+        if chat_log:
+            # SQLAlchemyはこのオブジェクトの変更を検出して自動的にupdated_atを更新
+            chat_log.status = chat_log.status  # 同じ値を設定しても変更として検出される
+            
         self.session.commit()
         return chat_message.id
 

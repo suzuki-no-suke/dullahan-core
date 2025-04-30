@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 import json
 from pathlib import Path
 from pydantic import BaseModel
+import datetime
 
 from ...defs.datadef import ChatMessageData, ChatLogData
 from ..interface.IChatLog import IChatLog
@@ -45,6 +46,7 @@ class FileChatLog(IChatLog):
             self.whole_logs.logs[chat_id] = ChatLogData.create(chat_id, messages[0].system_name)
         for msg in messages:
             self.whole_logs.logs[chat_id].messages.append(msg)
+        self.whole_logs.logs[chat_id].updated_at = datetime.datetime.now()
 
     def serialize(self):
         """

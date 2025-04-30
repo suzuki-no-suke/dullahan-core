@@ -85,8 +85,9 @@ def test_chat_operations(chat_control):
     
     # chatのテスト
     user_input = "こんにちは"
+    subsystem_name = "(Unspecified)"
     chat_control.chat(chat_id, user_input)
-    mock_bot.chat.assert_called_once_with(user_input)
+    mock_bot.chat.assert_called_once_with(user_input, subsystem_name)
 
 def test_close(chat_control, mock_system_provider, mock_function_provider):
     chat_control.close()

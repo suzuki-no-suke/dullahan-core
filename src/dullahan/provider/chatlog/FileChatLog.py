@@ -48,6 +48,19 @@ class FileChatLog(IChatLog):
             self.whole_logs.logs[chat_id].messages.append(msg)
         self.whole_logs.logs[chat_id].updated_at = datetime.datetime.now()
 
+    def update_title(self, chat_id: str, new_title: str) -> None:
+        """
+        チャットのタイトルを更新する
+        Args:
+            chat_id: 更新するチャットのID
+            new_title: 新しいタイトル
+        """
+        if chat_id not in self.whole_logs.logs:
+            raise ValueError(f"Chat log not found: {chat_id}")
+        self.whole_logs.logs[chat_id].title = new_title
+        self.whole_logs.logs[chat_id].updated_at = datetime.datetime.now()
+        self.serialize()
+
     def serialize(self):
         """
         チャットログをシリアライズしてファイルに保存

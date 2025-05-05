@@ -30,6 +30,15 @@ class IChatLog:
         """
         raise NotImplementedError("IChatLog.add_log must be implemented")
 
+    def update_title(self, chat_id: str, new_title: str):
+        """
+        チャットのタイトルを更新する
+        Args:
+            chat_id: 更新するチャットのID
+            new_title: 新しいタイトル
+        """
+        raise NotImplementedError("IChatLog.update_title must be implemented")
+
     def serialize(self) -> Dict[str, Any]:
         """
         チャットログをシリアライズ

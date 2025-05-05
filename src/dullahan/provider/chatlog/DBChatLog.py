@@ -69,6 +69,19 @@ class DbChatLog(IChatLog):
             for msg in messages:
                 handler.add_message(chat_id, msg.role, msg.message, msg.system_name, msg.subsystem_name)
 
+    def update_title(self, chat_id: str, new_title: str) -> None:
+        """
+        チャットのタイトルを更新する
+        Args:
+            chat_id: 更新するチャットのID
+            new_title: 新しいタイトル
+        """
+        with self.db_conn.get_new_session() as sess:
+            handler = ChatHandler(sess)
+            if not handler.is_exist(chat_id):
+                raise ValueError(f"Chat log not found: {chat_id}")
+            handler.update_title(chat_id, new_title)
+
     def serialize(self):
         """
         チャットログをシリアライズしてファイルに保存

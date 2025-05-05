@@ -88,6 +88,26 @@ class ChatHandler:
         result = self.session.execute(stmt).scalars().all()
         return list(result)
 
+    def set_hidden(self, chat_log_id: str, is_hidden: bool) -> None:
+        """チャットログの非表示状態を設定する"""
+        stmt = select(ChatLog).where(ChatLog.id == chat_log_id)
+        chat_log = self.session.execute(stmt).scalar_one_or_none()
+        if chat_log:
+            chat_log.is_hidden = is_hidden
+            self.session.commit()
+
+    def list_all_chat_ids_with_hidden(self) -> list[str]:
+        """非表示を含むすべてのチャットログのIDを取得する"""
+        stmt = select(ChatLog.id)
+        result = self.session.execute(stmt).scalars().all()
+        return list(result)
+
+    def list_visible_chat_ids(self) -> list[str]:
+        """表示状態のチャットログのIDのみを取得する"""
+        stmt = select(ChatLog.id).where(ChatLog.is_hidden == False)
+        result = self.session.execute(stmt).scalars().all()
+        return list(result)
+
 class ChatMemoryHandler:
     def __init__(self, session: Session):
         self.session = session

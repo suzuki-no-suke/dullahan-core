@@ -31,11 +31,29 @@ class DBChatHistory(IChatHistory):
     def list_all_chat_history(self) -> list[str]:
         with self.db_conn.get_new_session() as sess:
             handler = ChatHandler(sess)
-            return handler.list_all_chat_ids()
+            return handler.list_visible_chat_ids()
+
+    def hidden_history(self, chat_id: str):
+        with self.db_conn.get_new_session() as sess:
+            handler = ChatHandler(sess)
+            handler.set_hidden(chat_id, True)
+
+    def list_all_chat_history_with_hidden_history(self) -> list[str]:
+        with self.db_conn.get_new_session() as sess:
+            handler = ChatHandler(sess)
+            return handler.list_all_chat_ids_with_hidden()
 
     def serialize(self):
+        """
+        データベースのチャット履歴をシリアライズします。
+        データベースを使用しているため、このメソッドは何もしません。
+        """
         pass
 
     def deserialize(self):
+        """
+        データベースのチャット履歴をデシリアライズします。
+        データベースを使用しているため、このメソッドは何もしません。
+        """
         pass
 

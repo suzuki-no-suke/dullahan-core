@@ -44,6 +44,7 @@ class ChatLog(Base):
     status = Column(String, nullable=False, default="wait")
     system_name = Column(String, nullable=False, default="(Unknown)")
     chat_title = Column(String, nullable=True, default="(Untitled)")
+    is_hidden = Column(Boolean, nullable=False, default=False)
 
     __table_args__ = (
         CheckConstraint(status.in_(VALID_CHAT_LOG_STATUSES), name="valid_status_check"),

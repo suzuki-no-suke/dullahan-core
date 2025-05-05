@@ -19,9 +19,15 @@ class FileChatHistory(IChatHistory):
         return chat_id
 
     def is_exists(self, chat_id: str) -> bool:
-        return chat_id in self.chats.datas.keys()
+        return chat_id in self.chats.datas.keys() and not self.chats.datas[chat_id].is_hidden
 
     def list_all_chat_history(self) -> list[str]:
+        return [chat_id for chat_id, d in self.chats.datas if not d.is_hidden]
+
+    def hidden_history(self, chat_id: str):
+        self.chats.datas[chat_id].is_hidden = True
+
+    def list_all_chat_history_with_hidden_history(self) -> list[str]:
         return list(self.chats.datas.keys())
 
     def serialize(self):

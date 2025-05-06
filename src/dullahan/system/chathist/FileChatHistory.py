@@ -15,7 +15,7 @@ class FileChatHistory(IChatHistory):
 
     def create_chat(self, system_name: str) -> str:
         chat_id = str(ULID())
-        self.chats.datas[chat_id] = SingleChatHistory(chat_id=chat_id, system_name=system_name)
+        self.chats.datas[chat_id] = SingleChatHistory.create(system_name, chat_id)
         return chat_id
 
     def is_exists(self, chat_id: str) -> bool:

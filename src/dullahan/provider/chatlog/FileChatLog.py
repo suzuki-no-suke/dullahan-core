@@ -57,7 +57,7 @@ class FileChatLog(IChatLog):
         """
         if chat_id not in self.whole_logs.logs:
             raise ValueError(f"Chat log not found: {chat_id}")
-        self.whole_logs.logs[chat_id].title = new_title
+        self.whole_logs.logs[chat_id].chat_title = new_title
         self.whole_logs.logs[chat_id].updated_at = datetime.datetime.now()
         self.serialize()
 

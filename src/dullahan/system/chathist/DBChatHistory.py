@@ -16,7 +16,7 @@ class DBChatHistory(IChatHistory):
         with self.db_conn.get_new_session() as sess:
             handler = ChatHandler(sess)
             chat_data = handler.get_chat_data(chat_id)
-            return SingleChatHistory(chat_id=chat_id, system_name=chat_data.system_name)
+            return SingleChatHistory.create(chat_data.system_name, chat_id)
 
     def create_chat(self, system_name: str) -> str:
         with self.db_conn.get_new_session() as sess:

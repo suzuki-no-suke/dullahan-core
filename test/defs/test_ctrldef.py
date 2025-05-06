@@ -3,19 +3,20 @@ from src.dullahan.defs.ctrldef import SingleChatHistory, WholeChatHistory
 
 def test_single_chat_history():
     # 正常なケース
-    chat = SingleChatHistory(chat_id="123", system_name="test_system")
+    chat = SingleChatHistory(chat_id="123", system_name="test_system", is_hidden=False)
     assert chat.chat_id == "123"
     assert chat.system_name == "test_system"
+    assert chat.is_hidden == False
 
     # 空の値でも動作するか
-    chat = SingleChatHistory(chat_id="", system_name="")
+    chat = SingleChatHistory(chat_id="", system_name="", is_hidden=False)
     assert chat.chat_id == ""
     assert chat.system_name == ""
 
 def test_whole_chat_history():
     # 正常なケース
-    chat1 = SingleChatHistory(chat_id="123", system_name="system1")
-    chat2 = SingleChatHistory(chat_id="456", system_name="system2")
+    chat1 = SingleChatHistory(chat_id="123", system_name="system1", is_hidden=False)
+    chat2 = SingleChatHistory(chat_id="456", system_name="system2", is_hidden=False)
     
     history = WholeChatHistory(datas={
         "key1": chat1,
